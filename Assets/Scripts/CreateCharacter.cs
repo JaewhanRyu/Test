@@ -45,12 +45,25 @@ public class CreateCharacter : MonoBehaviour
         loadCharacterJobdata.LoadStatFromFirebase(jobName, (jobData) =>
         {
             jobDt = jobData;
-            CreateCharacterFunction();
+            if (jobDt == null)
+            {
+                Debug.Log($"문서 없음: {jobName}");
+            }
+            else
+            {
+                CreateCharacterFunction();
+            }
         });
     }
 
     public void CreateCharacterFunction()
     {
+        if (jobDt == null)
+        {
+            Debug.LogError("jobDt가 null입니다! 캐릭터 스탯 데이터가 정상적으로 로드되지 않았습니다.");
+            return;
+        }
+
         if (characterList.Count < maxCharacterCount)
         {
             GameObject character = null;
@@ -67,7 +80,14 @@ public class CreateCharacter : MonoBehaviour
                     break;
             }
             characterList.Add(character);
-            character.GetComponent<CharacterStat>().InitStat(jobDt);
+
+            var stat = character.GetComponent<CharacterStat>();
+            if (stat == null)
+            {
+                Debug.LogError("CharacterStat 컴포넌트가 프리팹에 없습니다!");
+                return;
+            }
+            stat.InitStat(jobDt);
         }
     }
 }

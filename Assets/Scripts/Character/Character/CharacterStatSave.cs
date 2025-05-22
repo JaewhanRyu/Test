@@ -58,27 +58,30 @@ public class CharacterStatSave : MonoBehaviour
             { "CurrentExp", data.currentExp },
             { "MaxExp", data.maxExp },
             { "CurrentGold", data.currentGold },
+            { "MaxExpRateIncreaseRate", data.maxExpRateIncreaseRate }
          };
          return statDict;
     }
 
     public void SaveStatToFirebase(CharacterJobData data)
     {
-        Debug.Log("SaveStatToFirebase 실행");
-        FirebaseFirestore db = FirebaseFirestore.DefaultInstance; //파이어베이스 데이터베이스 초기화(사용준비)
-        var dic = StatConvertToDictionary(data);
-        db.Collection("JobStats").Document(data.jobName).SetAsync(dic).ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            var dic = StatConvertToDictionary(data);
+            db.Collection("JobStats").Document(data.jobName).SetAsync(dic).ContinueWithOnMainThread(task =>
             {
-                Debug.Log("데이터 저장 완료");
-            }
-            else
-            {
-                Debug.Log("데이터 저장 실패");
-            }
-        });
-
-        
+                    if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
+                    {
+                        Debug.Log("데이터 저장 완료");
+                    }
+                    else
+                    {
+                        Debug.Log("데이터 저장 실패");
+                        if (task.Exception != null)
+                            Debug.LogError(task.Exception.ToString());
+                    }
+                
+               
+            });
+        }
     }
-}
+

@@ -22,7 +22,7 @@ MonoBehaviour:
   skillCoolTimeDecreaseRate: 0
   moveSpeed: 2
   viewRange: 2
-  attackRange: 1.6
+  attackRange: 1.5
   currentGold: 0
   currentExp: 0
   maxExp: 50
