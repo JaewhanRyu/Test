@@ -7,9 +7,45 @@ using Firebase.Extensions;
 public class LoginManager : MonoBehaviour
 {
    public GameObject RigisterPanel;
+   public RectTransform EmailInputScale;
    public TMP_InputField EmailInput;
+   public RectTransform PasswordInputScale;
    public TMP_InputField PasswordInput;
    public GameObject forgotPasswordPanel;
+   public TextMeshProUGUI errorText;
+
+   private Vector3 originalEmailInputScale;
+   private Vector3 originalPasswordInputScale;
+
+   public void Start()
+   {
+      originalEmailInputScale = EmailInputScale.localScale;
+      originalPasswordInputScale = PasswordInputScale.localScale;
+
+      EmailInput.onSelect.AddListener(OnEmailInputSlected);
+      PasswordInput.onSelect.AddListener(OnPasswordInputSlected);
+
+      EmailInput.onDeselect.AddListener(OnEmailInputDeslected);
+      PasswordInput.onDeselect.AddListener(OnPasswordInputDeslected);
+   }
+
+   void OnEmailInputSlected(string text)
+   {
+      EmailInputScale.localScale = new Vector3(1.5f, 1.5f, 1);
+   }
+   void OnPasswordInputSlected(string text)
+   {
+      PasswordInputScale.localScale = new Vector3(1.5f, 1.5f, 1);
+   }
+
+   void OnEmailInputDeslected(string text)
+   {
+      EmailInputScale.localScale = originalEmailInputScale;
+   }
+   void OnPasswordInputDeslected(string text)
+   {
+      PasswordInputScale.localScale = originalPasswordInputScale;
+   }
 
    public void RigisterButtonClick()
    {
@@ -38,6 +74,8 @@ public class LoginManager : MonoBehaviour
             if (task.IsFaulted || task.IsCanceled)
             {
                Debug.LogError("로그인 실패: " + task.Exception);
+               errorText.color = Color.red;
+               errorText.text = "Login Failed\nCheck your email or password";
                return;
             }
 
