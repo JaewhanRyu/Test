@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
+    public CharacterJobData jobDataScript;
+
+
     public string characterName;
     public string jobName;
     public int level;
@@ -22,6 +25,11 @@ public class CharacterStat : MonoBehaviour
     public int maxExp;
     
     public float maxExpRateIncreaseRate;
+
+    void Start()
+    {
+        InitStat(jobDataScript);
+    }
 
     public void OnEnable()
     {
