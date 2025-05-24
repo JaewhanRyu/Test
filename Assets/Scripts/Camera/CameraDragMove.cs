@@ -3,6 +3,9 @@ using UnityEngine;
 public class CameraDragMove : MonoBehaviour
 {
     public Transform boundObject;
+    public Transform targetCharacter;
+    private bool isTargetCharacter = false;
+
     private BoxCollider2D boundCollider;
 
     private Camera cam;
@@ -16,33 +19,46 @@ public class CameraDragMove : MonoBehaviour
 
     void Update()
     {
-        //PC일 때
-        if (Input.GetMouseButtonDown(0))
+        IsTargetCharacter();
+        if(!isTargetCharacter)
         {
+            if (Input.GetMouseButtonDown(0))
+          {
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
-        }
-        if(Input.GetMouseButton(0))
-        {
+          }
+           if(Input.GetMouseButton(0))
+          {
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
             MoveCamera(difference);
-        }
+          }
  
         //모바일일 때
-        if(Input.touchCount == 1) //손가락 하나 눌렀을 때
-        {
+          if(Input.touchCount == 1) //손가락 하나 눌렀을 때
+          {
             Touch touch = Input.GetTouch(0); //첫번째 손가락 정보
 
-            if(touch.phase == TouchPhase.Began)
-            {
+              if(touch.phase == TouchPhase.Began)
+              {
                 dragOrigin = cam.ScreenToWorldPoint(touch.position);
-            }
-            else if(touch.phase == TouchPhase.Moved)
-            {
+              }
+              else if(touch.phase == TouchPhase.Moved)
+              {
                 Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(touch.position);
                 MoveCamera(difference);
+              }
+          }
+        }
+        else
+        {
+            if(targetCharacter != null)
+            {
+                FollowCharacter();
             }
         }
+        //PC일 때
+        
     }
+
 
     void MoveCamera(Vector3 moveDelta)
     {
@@ -69,5 +85,33 @@ public class CameraDragMove : MonoBehaviour
         camPos.x = Mathf.Clamp(camPos.x, minX, maxX);
         camPos.y = Mathf.Clamp(camPos.y, minY, maxY);
         cam.transform.position = new Vector3(camPos.x, camPos.y, cam.transform.position.z);
+    }
+
+    public float smoothFollowSpeed = 2f;
+
+    void FollowCharacter()
+    {
+        if(targetCharacter == null)
+        {
+            return;
+        }
+        Vector3 targetPos = targetCharacter.position;
+        Vector3 newPos = Vector3.Lerp(transform.position, targetPos, smoothFollowSpeed * Time.deltaTime);
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+    }
+
+    void IsTargetCharacter()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 worldPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+            if(hit.collider != null && hit.collider.gameObject.tag == "Character")
+            {
+                targetCharacter = hit.collider.gameObject.transform;
+                isTargetCharacter = true;
+            }
+        }
     }
 }

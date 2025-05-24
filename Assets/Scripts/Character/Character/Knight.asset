@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885ae0190eb178a4dbcc111e377292a9, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
-  jobName: 
-  strength: 0
-  intelligence: 0
-  dexterity: 0
-  vitality: 0
+  jobName: Knight
+  strength: 10
+  intelligence: 5
+  dexterity: 5
+  vitality: 5
