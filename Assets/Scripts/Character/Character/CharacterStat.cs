@@ -2,58 +2,67 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
-    public CharacterJobData jobDataScript;
+   public JobData jobData;
+
+   public int level = 1;
+
+   public int strength;
+   public int intelligence;
+   public int dexterity;
+   public int vitality;
+
+   public int maxHp;
+   public int currentHp;
+
+   public int attackDamage;
+   public float attackSpeed;
+   public float dodgeRate = 0.1f;
+   public float criticalRate = 0.1f;
+   public int criticalDamage;
+   public float skillDamageRate;
+   public float moveSpeed = 2f;
+
+   public int gold = 0;
+   public int currentExp = 0;
+   public int maxExp = 20;
+
+   public float maxPlayTime = 600f;
+   public float currentPlayTime = 0f;
+   public float playTimeRecovery = 4f;
 
 
-    public string characterName;
-    public string jobName;
-    public int level;
-    public int currentHp;
-    public int maxHp;
-    public int attackPower;
-    public int defense;
-    public float dodgeRate;
-    public float attackDelay;
-    public float skillCoolTimeDecreaseRate;
-    public float moveSpeed;
-    public float viewRange;
-    public float attackRange;
 
-    public int currentGold;
+   void Awake()
+   {
+        Initialize();
+        StatCulculated();
+   }
 
-    public int currentExp;
-    public int maxExp;
-    
-    public float maxExpRateIncreaseRate;
+   void Start()
+   {
+        currentPlayTime = maxPlayTime;
+   }
 
-    void Start()
-    {
-        InitStat(jobDataScript);
-    }
+   void Initialize()
+   {
+        strength = jobData.strength;
+        intelligence = jobData.intelligence;
+        dexterity = jobData.dexterity;
+        vitality = jobData.vitality;
+   }
 
-    public void OnEnable()
-    {
-        currentHp = maxHp;
-    }
+   void StatCulculated()
+   {
+       maxHp = 50 + (vitality * 5);
+       attackDamage = strength * 1;
+       attackSpeed = Mathf.Clamp(attackSpeed, 0.5f, 2f);
+       dodgeRate = Mathf.Clamp(dodgeRate, 0f, 0.5f);
+       moveSpeed = Mathf.Clamp(moveSpeed, 2f, 4f);
+       criticalRate = Mathf.Clamp(criticalRate, 0f, 1f);
+       criticalDamage = (int)(attackDamage * (1.5f + (dexterity * 0.01f)));
+       skillDamageRate = (intelligence * 1.01f);
 
-    public void InitStat(CharacterJobData jobData)
-    {
-        jobName = jobData.jobName;
-        level = jobData.level;
-        maxHp = jobData.maxHp;
-        attackPower = jobData.attackPower;
-        defense = jobData.defense;
-        dodgeRate = jobData.dodgeRate;
-        attackDelay = jobData.attackDelay;  
-        skillCoolTimeDecreaseRate = jobData.skillCoolTimeDecreaseRate;
-        moveSpeed = jobData.moveSpeed;
-        viewRange = jobData.viewRange;
-        attackRange = jobData.attackRange;
-        currentGold = jobData.currentGold;
-        currentExp = jobData.currentExp;
-        maxExp = jobData.maxExp;
-        maxExpRateIncreaseRate = jobData.maxExpRateIncreaseRate;
-    }
+       currentHp = maxHp;
+   }
 
-    
 }
