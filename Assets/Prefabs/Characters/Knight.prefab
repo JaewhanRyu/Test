@@ -11,9 +11,13 @@ GameObject:
   - component: {fileID: 5472396441999419509}
   - component: {fileID: 3710308242624692144}
   - component: {fileID: 986649409238365866}
+  - component: {fileID: 6500109462630145326}
+  - component: {fileID: 7720005268517094021}
+  - component: {fileID: 6693736284503530480}
+  - component: {fileID: 7897268393254949855}
   m_Layer: 0
   m_Name: Knight
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2875184811977189179, guid: 3cd67bc5e6a22e7449b35e1aa87e4a72,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,3 +115,126 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6500109462630145326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bd76a3fc38da04198cc00b90f82297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toPortalWayPoints_Town:
+  - {fileID: 0}
+  - {fileID: 0}
+  fieldAreas:
+  - FieldWayPoints:
+    - {fileID: 0}
+    - {fileID: 0}
+  moveState: 0
+--- !u!114 &7720005268517094021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0958c8535209eca4391e2a6976973ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jobData: {fileID: 11400000, guid: f8e88eec83d904f478418c9d8d337156, type: 2}
+  level: 0
+  strength: 0
+  intelligence: 0
+  dexterity: 0
+  vitality: 0
+  attackRange: 0
+  viewRange: 0
+  maxHp: 0
+  currentHp: 0
+  attackDamage: 0
+  dodgeRate: 0
+  criticalRate: 0
+  criticalDamage: 0
+  skillDamageRate: 0
+  maxPlayTime: 50
+  currentPlayTime: 0
+  moveSpeed: 2
+--- !u!61 &6693736284503530480
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.031846613, y: 0.0207697}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.34368318, y: 0.23845053}
+  m_EdgeRadius: 0
+--- !u!50 &7897268393254949855
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

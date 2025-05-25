@@ -22,8 +22,8 @@ public class CharacterStat : MonoBehaviour
     public int criticalDamage;
     public float skillDamageRate;
 
-    public int maxPlayTime;
-    public int currentPlayTime;
+    public float maxPlayTime;
+    public float currentPlayTime;
 
     public float moveSpeed = 2;
 
@@ -45,6 +45,8 @@ public class CharacterStat : MonoBehaviour
 
         attackRange = jobData.attackRange;
         viewRange = jobData.viewRange;
+
+        currentPlayTime = maxPlayTime;
     }
 
     void CalculateStat()

@@ -14,6 +14,7 @@ public class PortalInField : MonoBehaviour
             
             if(characters != null)
             {
+                Debug.Log("character 들어옴");
                 foreach(GameObject character in characters)
                 {
                     if(character.GetComponent<CharacterAutoMove>().moveState == CharacterAutoMove.MoveState.GoTown)

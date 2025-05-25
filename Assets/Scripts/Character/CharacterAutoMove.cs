@@ -1,12 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class FieldArea
+{
+    public Transform[] FieldWayPoints;
+}
+
+
 public class CharacterAutoMove : MonoBehaviour
 {
     private CharacterStat characterStat;
     private Rigidbody2D rigid;
     public Transform[] toPortalWayPoints_Town;
-    public Transform[] toPortalWayPoints_Field;
+    public FieldArea[] fieldAreas;
     private int currentWayPointIndex = 0;
 
     public enum MoveState
@@ -85,29 +92,39 @@ public class CharacterAutoMove : MonoBehaviour
 
     bool isArrivedToFieldArea = false;
 
+    //0번 필드영역 나중에 추가시 수정
+    private int currentFieldAreaIndex = 0;
     IEnumerator InField()
     {
         while (moveState == MoveState.InField)
         {
             while(!isArrivedToFieldArea)
             {
+                Debug.Log("사냥터 이동");
                 Vector2 currentPos = transform.position;
-                Vector2 targetPos = toPortalWayPoints_Field[currentWayPointIndex].position;
+                Vector2 targetPos = fieldAreas[0].FieldWayPoints[currentWayPointIndex].position;
                 Vector2 newPos = Vector2.MoveTowards(currentPos, targetPos, characterStat.moveSpeed * Time.fixedDeltaTime);
                 rigid.MovePosition(newPos);
 
                 if(Vector2.Distance(transform.position, targetPos) < 0.01f)
                 {
-                    if(currentWayPointIndex < toPortalWayPoints_Field.Length - 1)
+                    if(currentWayPointIndex < fieldAreas[0].FieldWayPoints.Length - 1)
                     {
-                        currentWayPointIndex++;
+                        currentFieldAreaIndex++;
                     }             
                 }
                 yield return new WaitForFixedUpdate();
             }
 
+            characterStat.currentPlayTime = Mathf.Max(characterStat.currentPlayTime - Time.fixedDeltaTime, 0);
 
-
+            if(characterStat.currentPlayTime == 0)
+            {
+                moveState = MoveState.GoTown;
+                moveCoroutine = null;
+                yield break;
+            }
+            yield return new WaitForFixedUpdate();
         }
         yield break;
     }
