@@ -22,6 +22,11 @@ public class CharacterStat : MonoBehaviour
     public int criticalDamage;
     public float skillDamageRate;
 
+    public int maxPlayTime;
+    public int currentPlayTime;
+
+    public float moveSpeed = 2;
+
     void Awake()
     {
         Initialize();
