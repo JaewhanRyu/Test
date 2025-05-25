@@ -15,6 +15,8 @@ public class CharacterAutoMove : MonoBehaviour
     public Transform[] toPortalWayPoints_Town;
     public FieldArea[] fieldAreas;
     private int currentWayPointIndex = 0;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     public enum MoveState
     {
@@ -27,15 +29,34 @@ public class CharacterAutoMove : MonoBehaviour
     public MoveState moveState;
     public Coroutine moveCoroutine;
 
+    public enum AnimationState
+    {
+        Idle,
+        Walk,
+        Attack,
+        Hurt,
+        Die
+    }
+
+    private AnimationState animationState;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         characterStat = GetComponent<CharacterStat>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
+    {
+        previousPos = transform.position;
     }
 
 
     void FixedUpdate()
     {
+        WalkCheck();
         if (moveCoroutine == null)
         {
             switch (moveState)
@@ -52,12 +73,14 @@ public class CharacterAutoMove : MonoBehaviour
                     break;
             }
         }
+        previousPos = transform.position;
     }
 
     bool isFirstMove = true;
 
     IEnumerator GoField()
     {
+        yield return new WaitForSeconds(2f); //나중에 삭제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         while (moveState == MoveState.GoField)
         {
             if (isFirstMove)
@@ -135,6 +158,40 @@ public class CharacterAutoMove : MonoBehaviour
         {
             isArrivedToFieldArea = true;
             currentWayPointIndex = 0;
+        }
+    }
+
+    private Vector2 previousPos;
+
+    void WalkCheck()
+    {
+        Vector2 currentPos = transform.position;
+
+        float x = Mathf.Abs(currentPos.x - previousPos.x);
+        float y = Mathf.Abs(currentPos.y - previousPos.y);
+
+        if(x > 0.01f || y > 0.01f)
+        {
+            animationState = AnimationState.Walk;
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animationState = AnimationState.Idle;
+            animator.SetBool("Walk", false);
+        }
+        AnimationFlip();
+    }
+
+    void AnimationFlip()
+    {
+        if(transform.position.x - previousPos.x >= 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
         }
     }
 
