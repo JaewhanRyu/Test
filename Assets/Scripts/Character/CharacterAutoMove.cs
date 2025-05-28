@@ -80,7 +80,7 @@ public class CharacterAutoMove : MonoBehaviour
 
     IEnumerator GoField()
     {
-        yield return new WaitForSeconds(2f); //나중에 삭제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        yield return new WaitForSeconds(1f); //나중에 삭제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         while (moveState == MoveState.GoField)
         {
             if (isFirstMove)
@@ -117,6 +117,7 @@ public class CharacterAutoMove : MonoBehaviour
 
     //0번 필드영역 나중에 추가시 수정
     private int currentFieldAreaIndex = 0;
+    private Coroutine randomMoveCoroutine;
     IEnumerator InField()
     {
         while (moveState == MoveState.InField)
@@ -147,10 +148,17 @@ public class CharacterAutoMove : MonoBehaviour
                 moveCoroutine = null;
                 yield break;
             }
+
+            if(randomMoveCoroutine == null)
+            {
+                randomMoveCoroutine = StartCoroutine(RandomMove());
+            }
             yield return new WaitForFixedUpdate();
         }
         yield break;
     }
+
+    private Bounds fieldBounds;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -158,7 +166,53 @@ public class CharacterAutoMove : MonoBehaviour
         {
             isArrivedToFieldArea = true;
             currentWayPointIndex = 0;
+            fieldBounds = other.bounds;
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Field")
+        {
+            isArrivedToFieldArea = false;
+            randomMoveCoroutine = null;
+            StopCoroutine(randomMoveCoroutine);
+        }
+    }
+
+    private Vector2 randomPos;
+
+    IEnumerator RandomMove()
+    {
+        bool firstMove = true;
+        while(moveState == MoveState.InField)
+        {
+            Vector2 targetPos;
+
+            if(firstMove)
+            {
+                float randomX = Random.Range(fieldBounds.min.x, fieldBounds.max.x);
+                float randomY = Random.Range(fieldBounds.min.y, fieldBounds.max.y);
+                randomPos = new Vector2(randomX, randomY);
+                firstMove = false;
+            }
+
+            Vector2 currentPos = transform.position;
+            targetPos = randomPos;
+
+            Vector2 newPos = Vector2.MoveTowards(currentPos, targetPos, characterStat.moveSpeed * Time.fixedDeltaTime);
+            rigid.MovePosition(newPos);
+
+            float distance = (newPos - targetPos).sqrMagnitude;
+
+            if(distance < 0.0001f)
+            {
+                firstMove = true;
+                yield return new WaitForSeconds(5f);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        yield break;     
     }
 
     private Vector2 previousPos;

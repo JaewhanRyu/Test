@@ -165,7 +165,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11
+  orthographic size: 13
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -204,3 +204,4 @@ MonoBehaviour:
   nextPos:
   - {x: 0, y: 0, z: -10}
   - {x: 30, y: 0, z: -10}
+  - {x: 60, y: 0, z: -10}
