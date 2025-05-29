@@ -20,5 +20,8 @@ MonoBehaviour:
   dodgeRate: 0.1
   criticalRate: 0.1
   criticalDamageRate: 1.5
+  attackRange: 0.65
+  viewRange: 2
+  attackDelay: 1
   dropExp: 5
   dropGold: 5

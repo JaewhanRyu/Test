@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CharacterStat : MonoBehaviour
 {
@@ -34,6 +35,12 @@ public class CharacterStat : MonoBehaviour
         CalculateStat();
     }
 
+    void OnEnable()
+    {
+        currentHp = maxHp;
+        gameObject.GetComponent<CharacterAutoMove>().enabled = true;
+    }
+
 
     void Initialize()
     {
@@ -59,6 +66,27 @@ public class CharacterStat : MonoBehaviour
         criticalRate = Mathf.Clamp(criticalRate,0.1f,1f);
         criticalDamage = (int)(attackDamage * (1.5f + (dexterity * 0.005f)));
         skillDamageRate = intelligence * 0.01f;
+    }
+
+    public void OnDamage(int damage)
+    {
+        if(currentHp > 0)
+        {
+            currentHp = Mathf.Max(currentHp - damage, 0);
+        }
+        else
+        {
+            currentHp = 0;
+            StartCoroutine(Die());
+        }
+    }
+
+    IEnumerator Die()
+    {
+        gameObject.GetComponent<CharacterAutoMove>().enabled = false;
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false);
+        yield break;
     }
 }
 

@@ -13,6 +13,11 @@ public class MonsterData : ScriptableObject
     public float criticalRate;
     public float criticalDamageRate;
 
+    public float attackRange;
+    public float viewRange;
+
+    public float attackDelay;
+
     public int dropExp;
     public int dropGold;
 }

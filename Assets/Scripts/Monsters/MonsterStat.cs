@@ -17,6 +17,10 @@ public class MonsterStat : MonoBehaviour
     public int dropExp;
     public int dropGold;
 
+    public float attackRange;
+    public float viewRange;
+    public float attackDelay;
+
     void Awake()
     {
         Init();
@@ -32,7 +36,20 @@ public class MonsterStat : MonoBehaviour
         criticalDamageRate = monsterData.criticalDamageRate;
         dropExp = monsterData.dropExp;
         dropGold = monsterData.dropGold;
+        attackRange = monsterData.attackRange;
+        viewRange = monsterData.viewRange;
+        attackDelay = monsterData.attackDelay;
+
 
         currentHp = maxHp;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, viewRange);
     }
 }
