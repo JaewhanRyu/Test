@@ -43,10 +43,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2773661741338157209}
   - component: {fileID: 4869138989533089962}
-  - component: {fileID: 3387483618571187894}
   m_Layer: 0
   m_Name: InField_Portal
-  m_TagString: Untagged
+  m_TagString: InFieldPortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,19 +111,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3387483618571187894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6963725503690657555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49670cc5c474b4469373536c07eb152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toTownArea: {fileID: 7324758437141567405}
 --- !u!1 &8685251848421437554
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,10 +121,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7324758437141567405}
   - component: {fileID: 4529246468920315747}
-  - component: {fileID: 8350437545564468314}
   m_Layer: 0
   m_Name: InTown_Portal
-  m_TagString: Untagged
+  m_TagString: InTownPortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,17 +189,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8350437545564468314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685251848421437554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efc29499d88a7845ac8308bdc7bf0be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toFieldArea:
-  - {fileID: 2773661741338157209}

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5472396441999419509}
   - component: {fileID: 3710308242624692144}
   - component: {fileID: 986649409238365866}
-  - component: {fileID: 6500109462630145326}
   - component: {fileID: 7720005268517094021}
   - component: {fileID: 6693736284503530480}
   - component: {fileID: 7897268393254949855}
+  - component: {fileID: 5034007494313124736}
   m_Layer: 3
   m_Name: Knight
   m_TagString: Character
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 4.04, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,26 +115,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6500109462630145326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617343920369983408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bd76a3fc38da04198cc00b90f82297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toPortalWayPoints_Town:
-  - {fileID: 0}
-  - {fileID: 0}
-  fieldAreas:
-  - FieldWayPoints:
-    - {fileID: 0}
-    - {fileID: 0}
-  moveState: 0
 --- !u!114 &7720005268517094021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +144,7 @@ MonoBehaviour:
   skillDamageRate: 0
   maxPlayTime: 50
   currentPlayTime: 0
+  playTimeRecoveryRate: 0
   moveSpeed: 2
 --- !u!61 &6693736284503530480
 BoxCollider2D:
@@ -238,3 +219,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5034007494313124736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4414e12920c70f34481e766bdc561f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveState: 0
+  intownInitWayPoints:
+  - {fileID: 0}
+  inTownPortalWayPoint:
+  - {fileID: 0}
+  - {fileID: 0}
+  fieldPortals:
+  - FieldPortalWayPoins:
+    - {fileID: 0}
+    - {fileID: 0}
+  townPortalPos: {fileID: 0}
+  fieldPortalPos:
+  - {fileID: 0}

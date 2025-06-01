@@ -1,0 +1,61 @@
+using UnityEngine;
+
+public class Stat : MonoBehaviour
+{
+    public StatData statData;
+
+    public int health;
+    public int strength;
+    public int intelligence;
+    public int dexterity;
+
+    public int maxHp;
+    public int currentHp;
+    public int attackPower;
+    public float skillDamageRate;
+
+    public float dodgeRate;
+    public float criticalRate;
+    public float criticalDamage;
+
+    public float moveSpeed;
+    public float attackDelay;
+
+    public float viewRange;
+    public float attackRange;
+    
+    
+    void Awake()
+    {
+        Init();
+    }
+
+    void Start()
+    {
+        InitStat();
+    }
+
+
+    void Init()
+    {
+        health = statData.health;
+        strength = statData.strength;
+        intelligence = statData.intelligence;
+        dexterity = statData.dexterity;
+
+        viewRange = statData.viewRange;
+        attackRange = statData.attackRange;
+        moveSpeed = statData.moveSpeed;
+        attackDelay = statData.attackDelay;
+    }
+
+    void InitStat()
+    {
+        maxHp = health * 5;
+        currentHp = maxHp;
+
+        attackPower = strength * 2;
+        skillDamageRate = intelligence * 0.01f;
+        criticalDamage = dexterity * 0.01f;
+    }
+}

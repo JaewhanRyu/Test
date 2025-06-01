@@ -9,19 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a66038b3d1e369e489b3069179a3934c, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a8d8a3d309f99479488f2500a756fc, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  monsterName: Slime
-  level: 1
-  maxHp: 100
-  attackDamage: 10
+  health: 30
+  strength: 5
+  intelligence: 5
+  dexterity: 5
+  viewRange: 1.5
+  attackRange: 0.6
   moveSpeed: 2
-  dodgeRate: 0.1
-  criticalRate: 0.1
-  criticalDamageRate: 1.5
-  attackRange: 0.65
-  viewRange: 2
   attackDelay: 1
-  dropExp: 5
-  dropGold: 5
