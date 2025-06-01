@@ -131,6 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3535a9e7ef1cb2a479e79057faae7355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &949240879 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 655645456054026235, guid: a4b4a596813df624e9e79b5ea526a70f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1117778538842528149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1150351271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,6 +145,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5472396441999419509, guid: 8caa891d26b0768499e72de7aa2e624d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.04
+      objectReference: {fileID: 0}
     - target: {fileID: 5472396441999419509, guid: 8caa891d26b0768499e72de7aa2e624d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -611,6 +622,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7823022087612337820, guid: 63fffcd584b0ac2468d65bc713868612,
+        type: 3}
+      propertyPath: boxCollider
+      value: 
+      objectReference: {fileID: 949240879}
     - target: {fileID: 9221938047370537791, guid: 63fffcd584b0ac2468d65bc713868612,
         type: 3}
       propertyPath: m_Name

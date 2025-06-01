@@ -55,7 +55,7 @@ public class MonsterAutoFight : MonoBehaviour
    void FixedUpdate()
    {
      WalkCheck();
-     if(isFindEnemy)
+     if(!isFindEnemy)
      {
         if(autoMoveCoroutine == null)
         {
