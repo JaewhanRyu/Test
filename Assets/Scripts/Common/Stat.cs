@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stat : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Stat : MonoBehaviour
 
     public float viewRange;
     public float attackRange;
+
+    public Image hpBar_fill;
     
     
     void Awake()
@@ -58,4 +61,11 @@ public class Stat : MonoBehaviour
         skillDamageRate = intelligence * 0.01f;
         criticalDamage = dexterity * 0.01f;
     }
+
+    public void HpBarUpdate()
+    {
+        hpBar_fill.fillAmount = (float)currentHp / maxHp;
+    }
+
+    
 }

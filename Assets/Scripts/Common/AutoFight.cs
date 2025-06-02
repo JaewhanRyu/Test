@@ -24,6 +24,7 @@ public class AutoFight : MonoBehaviour, IFight
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private bool isAttacking = false;
+    private bool isDie = false; // 몬스터와 캐릭터 각각 다르게 사용하기 위한 변수수
 
     void Awake()
     {
@@ -31,6 +32,8 @@ public class AutoFight : MonoBehaviour, IFight
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        isDie = false;
+        isAttacking = false;
     }
 
     void OnEnable()
@@ -232,6 +235,12 @@ public class AutoFight : MonoBehaviour, IFight
     public void Hurt(int damage)
     {
         stat.currentHp = Mathf.Max(stat.currentHp - damage, 0);
+        stat.HpBarUpdate();
+        if(stat.currentHp <= 0)
+        {
+            Die();
+        }
+
         if(!isAttacking)
         {
             animator.SetTrigger("Hurt");
@@ -240,11 +249,21 @@ public class AutoFight : MonoBehaviour, IFight
 
     public void Die()
     {
-        animator.SetTrigger("Die");
+        animator.SetBool("isDeath", true);
+        StopCoroutine(autoFightCoroutine);
+        autoFightCoroutine = null;
     }
 
     public void Skill(int skillDamage)
     {
         Debug.Log("Skill");
+    }
+
+    IEnumerator DieEnd()
+    {
+        yield return new WaitForSeconds(5f);
+        animator.SetBool("isDeath", false);
+        gameObject.SetActive(false);
+        yield break;
     }
 }

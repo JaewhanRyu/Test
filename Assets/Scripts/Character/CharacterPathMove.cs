@@ -13,6 +13,7 @@ public class CharacterPathMove : MonoBehaviour
     private Stat stat;
     private Rigidbody2D rigidbody2D;
     private AutoFight autoFight;
+    public float hpRecoveryRate = 3f;
 
     public enum MoveState
     {
@@ -68,6 +69,7 @@ public class CharacterPathMove : MonoBehaviour
         while(moveState == MoveState.InTown)
         {
             characterInfo.currentPlayTime = Mathf.Min(characterInfo.currentPlayTime + (Time.fixedDeltaTime * characterInfo.playTimeRecoveryRate), characterInfo.maxPlayTime);   
+            HpRecovery();
 
             if(characterInfo.currentPlayTime == characterInfo.maxPlayTime)
             {
@@ -238,6 +240,15 @@ public class CharacterPathMove : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         yield break;
+    }
+
+    void HpRecovery()
+    {
+        if(stat.currentHp < stat.maxHp)
+        {
+            stat.currentHp = (int)Mathf.Min(stat.currentHp + (stat.maxHp * hpRecoveryRate * Time.fixedDeltaTime), stat.maxHp);
+            stat.HpBarUpdate();
+        }
     }
 
 
