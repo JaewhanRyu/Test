@@ -23,6 +23,7 @@ public class AutoFight : MonoBehaviour, IFight
     private Rigidbody2D rigid;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private bool isAttacking = false;
 
     void Awake()
     {
@@ -42,6 +43,15 @@ public class AutoFight : MonoBehaviour, IFight
         {
             bounds = fieldCollider.bounds;
         }   
+    }
+
+    void OnDisable()
+    {
+        if(autoFightCoroutine != null)
+        {
+            StopCoroutine(autoFightCoroutine);
+            autoFightCoroutine = null;
+        }
     }
 
     void FixedUpdate()
@@ -118,10 +128,11 @@ public class AutoFight : MonoBehaviour, IFight
         yield break;
     }
 
-    IEnumerator AttackTarget()
+    public IEnumerator AttackTarget()
     {
         while(autoFightState == AutoFightState.AttackTarget)
         {
+            TargetPosAndDieCheck();
             if(target == null)
             {
                 autoFightState = AutoFightState.FindTarget;
@@ -140,8 +151,10 @@ public class AutoFight : MonoBehaviour, IFight
             }
             else
             {
+                isAttacking = true;
                 animator.SetTrigger("Attack");
-                FlipAnimation();
+                AnimationFlip();
+                StartCoroutine(AttackEnd());
                 yield return new WaitForSeconds(stat.attackDelay);
             }
             yield return new WaitForFixedUpdate();
@@ -149,17 +162,7 @@ public class AutoFight : MonoBehaviour, IFight
         yield break;
     }
 
-    void FlipAnimation()
-    {
-        if(transform.position.x - target.transform.position.x > 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if(transform.position.x - target.transform.position.x < 0)
-        {
-            spriteRenderer.flipX = false;
-        }
-    }
+    
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -177,16 +180,67 @@ public class AutoFight : MonoBehaviour, IFight
         randomPos = new Vector2(randomX, randomY);
     }
 
-
-
-    public void Attack(int damage)
+    void AnimationFlip()
     {
-        Debug.Log("Attack");
+        if(transform.position.x > target.transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
     }
+
+    void TargetPosAndDieCheck()
+    {
+        if(target.transform.position.x < bounds.min.x || target.transform.position.x > bounds.max.x || target.transform.position.y < bounds.min.y || target.transform.position.y > bounds.max.y)
+        {
+            target = null;
+            autoFightState = AutoFightState.FindTarget;
+            autoFightCoroutine = null;
+        }
+        else if(target.GetComponent<Stat>().currentHp <= 0)
+        {
+            target = null;
+            autoFightState = AutoFightState.FindTarget;
+            autoFightCoroutine = null;
+        }
+    }
+
+    IEnumerator AttackEnd()
+    {
+        yield return new WaitForSeconds(0.4f);
+        isAttacking = false;
+        yield break;
+    }
+
+
+
+    public void Attack()
+    {
+        if(target != null)
+        {
+            if(target.GetComponent<Stat>().currentHp > 0)
+            {
+                target.GetComponent<IFight>().Hurt(stat.attackPower);
+            }
+        }
+    }
+
 
     public void Hurt(int damage)
     {
-        Debug.Log("Hurt");
+        stat.currentHp = Mathf.Max(stat.currentHp - damage, 0);
+        if(!isAttacking)
+        {
+            animator.SetTrigger("Hurt");
+        }
+    }
+
+    public void Die()
+    {
+        animator.SetTrigger("Die");
     }
 
     public void Skill(int skillDamage)

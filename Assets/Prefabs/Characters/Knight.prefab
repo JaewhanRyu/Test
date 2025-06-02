@@ -11,10 +11,13 @@ GameObject:
   - component: {fileID: 5472396441999419509}
   - component: {fileID: 3710308242624692144}
   - component: {fileID: 986649409238365866}
-  - component: {fileID: 7720005268517094021}
   - component: {fileID: 6693736284503530480}
   - component: {fileID: 7897268393254949855}
   - component: {fileID: 5034007494313124736}
+  - component: {fileID: 6483423623054341068}
+  - component: {fileID: 3063450963563186396}
+  - component: {fileID: 3645058841408509433}
+  - component: {fileID: 377135972548110008}
   m_Layer: 3
   m_Name: Knight
   m_TagString: Character
@@ -30,8 +33,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7617343920369983408}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.93, y: 1.37, z: 0}
   m_LocalScale: {x: 4.04, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,37 +118,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7720005268517094021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617343920369983408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0958c8535209eca4391e2a6976973ea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: f8e88eec83d904f478418c9d8d337156, type: 2}
-  level: 0
-  strength: 0
-  intelligence: 0
-  dexterity: 0
-  vitality: 0
-  attackRange: 0
-  viewRange: 0
-  maxHp: 0
-  currentHp: 0
-  attackDamage: 0
-  dodgeRate: 0
-  criticalRate: 0
-  criticalDamage: 0
-  skillDamageRate: 0
-  maxPlayTime: 50
-  currentPlayTime: 0
-  playTimeRecoveryRate: 0
-  moveSpeed: 2
 --- !u!61 &6693736284503530480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,3 +216,80 @@ MonoBehaviour:
   townPortalPos: {fileID: 0}
   fieldPortalPos:
   - {fileID: 0}
+--- !u!114 &6483423623054341068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9e422258c757b4981d14c6610e5795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3063450963563186396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78efac5ce2062e24e914bfbaa94b2812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoFightState: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  fieldCollider: {fileID: 0}
+--- !u!114 &3645058841408509433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be066c9079e058042822e1bda5ab5707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statData: {fileID: 11400000, guid: adfc8063d88cd704f9e1da45e8d29d9f, type: 2}
+  health: 0
+  strength: 0
+  intelligence: 0
+  dexterity: 0
+  maxHp: 0
+  currentHp: 0
+  attackPower: 0
+  skillDamageRate: 0
+  dodgeRate: 0
+  criticalRate: 0
+  criticalDamage: 0
+  moveSpeed: 2
+  attackDelay: 0
+  viewRange: 0
+  attackRange: 0
+--- !u!114 &377135972548110008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617343920369983408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90773745575fd8448bb6a0f8a786921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: 
+  level: 0
+  currentPlayTime: 0
+  maxPlayTime: 30
+  playTimeRecoveryRate: 4
+  currentExp: 0
+  maxExp: 0
+  gold: 0

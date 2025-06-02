@@ -51,6 +51,7 @@ public class CharacterPathMove : MonoBehaviour
                     break;
                 case MoveState.GoTown:
                     moveCoroutine = StartCoroutine(GoTown());
+                    autoFight.StopCoroutine(autoFight.AttackTarget());
                     autoFight.enabled = false;
                     break;
             }

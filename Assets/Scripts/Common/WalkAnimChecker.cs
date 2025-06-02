@@ -45,11 +45,11 @@ public class WalkAnimChecker : MonoBehaviour
    {
       Vector2 currentPos = transform.position;
       
-      if(currentPos.x - previousPos.x >= 0)
+      if(currentPos.x - previousPos.x > 0)
       {
         spriteRenderer.flipX = false;
       }
-      else
+      else if(currentPos.x - previousPos.x < 0)
       {
         spriteRenderer.flipX = true;
       }
