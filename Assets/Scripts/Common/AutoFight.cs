@@ -130,6 +130,7 @@ public class AutoFight : MonoBehaviour, IFight
 
     public IEnumerator AttackTarget()
     {
+        isAttacking = false;
         while(autoFightState == AutoFightState.AttackTarget)
         {
             TargetPosAndDieCheck();
@@ -232,9 +233,14 @@ public class AutoFight : MonoBehaviour, IFight
     public void Hurt(int damage)
     {
         stat.currentHp = Mathf.Max(stat.currentHp - damage, 0);
+        stat.UpdateHpBar();
         if(!isAttacking)
         {
             animator.SetTrigger("Hurt");
+        }
+         if(stat.currentHp <= 0)
+        {
+            Die();
         }
     }
 
