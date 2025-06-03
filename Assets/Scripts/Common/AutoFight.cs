@@ -276,6 +276,7 @@ public class AutoFight : MonoBehaviour, IFight
         yield return new WaitForSeconds(7f);
         transform.position = characterPathMove.intownInitWayPoints[0].position;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        animator.SetTrigger("Idle");
         characterPathMove.moveState = CharacterPathMove.MoveState.InTown;
         characterPathMove.moveCoroutine = null;
         this.enabled = false; 
