@@ -14,6 +14,7 @@ public class AutoFight : MonoBehaviour, IFight
 
     public AutoFightState autoFightState;
     private Coroutine autoFightCoroutine;
+    private CharacterPathMove characterPathMove;
     public LayerMask targetLayer;
     public BoxCollider2D fieldCollider;
     private Bounds bounds;
@@ -31,6 +32,11 @@ public class AutoFight : MonoBehaviour, IFight
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(gameObject.tag == "Character")
+        {
+            characterPathMove = GetComponent<CharacterPathMove>();
+        }
     }
 
     void OnEnable()
@@ -86,14 +92,13 @@ public class AutoFight : MonoBehaviour, IFight
 
                 foreach (Collider2D collider in colliders)
                {
-                    float distance = Vector2.Distance(transform.position, collider.transform.position);
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        nearestTarget = collider.gameObject;
-                    }
-               }
-
+                        float distance = Vector2.Distance(transform.position, collider.transform.position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            nearestTarget = collider.gameObject;
+                        }
+                }
                target = nearestTarget;
                autoFightState = AutoFightState.AttackTarget;
                autoFightCoroutine = null;
@@ -203,6 +208,7 @@ public class AutoFight : MonoBehaviour, IFight
         }
         else if(target.GetComponent<Stat>().currentHp <= 0)
         {
+            Debug.Log("targetDie");
             target = null;
             autoFightState = AutoFightState.FindTarget;
             autoFightCoroutine = null;
@@ -246,11 +252,41 @@ public class AutoFight : MonoBehaviour, IFight
 
     public void Die()
     {
-        animator.SetTrigger("Die");
+        if(gameObject.tag == "Character")
+        {
+            StartCoroutine(CharacterDieCoroutine());
+        }
+        else if(gameObject.tag == "Monster")
+        {
+            StartCoroutine(MonsterDieCoroutine());
+        }
     }
 
     public void Skill(int skillDamage)
     {
         Debug.Log("Skill");
+    }
+
+    IEnumerator CharacterDieCoroutine()
+    {
+        StopCoroutine(autoFightCoroutine);
+        animator.SetTrigger("Death");
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("CharacterDieCoroutine");
+        yield return new WaitForSeconds(7f);
+        transform.position = characterPathMove.intownInitWayPoints[0].position;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        characterPathMove.moveState = CharacterPathMove.MoveState.InTown;
+        characterPathMove.moveCoroutine = null;
+        this.enabled = false; 
+        yield break;
+    }
+
+    IEnumerator MonsterDieCoroutine()
+    {
+        animator.SetTrigger("Death");
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+        yield break;
     }
 }

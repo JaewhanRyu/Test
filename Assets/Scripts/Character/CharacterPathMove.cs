@@ -11,7 +11,7 @@ public class CharacterPathMove : MonoBehaviour
 {
     private CharacterInfo characterInfo;
     private Stat stat;
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigid;
     private AutoFight autoFight;
 
     public enum MoveState
@@ -23,13 +23,13 @@ public class CharacterPathMove : MonoBehaviour
     }
 
     public MoveState moveState;
-    private Coroutine moveCoroutine;
+    public Coroutine moveCoroutine;
 
     void Awake()
     {
         characterInfo = GetComponent<CharacterInfo>();
         stat = GetComponent<Stat>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
         autoFight = GetComponent<AutoFight>();
     }
 
@@ -68,6 +68,8 @@ public class CharacterPathMove : MonoBehaviour
         while(moveState == MoveState.InTown)
         {
             characterInfo.currentPlayTime = Mathf.Min(characterInfo.currentPlayTime + (Time.fixedDeltaTime * characterInfo.playTimeRecoveryRate), characterInfo.maxPlayTime);   
+            stat.currentHp = stat.maxHp;
+            stat.UpdateHpBar();
 
             if(characterInfo.currentPlayTime == characterInfo.maxPlayTime)
             {
@@ -81,7 +83,7 @@ public class CharacterPathMove : MonoBehaviour
                 Vector2 currentPosition = transform.position;
                 Vector2 targetPos = intownInitWayPoints[currentInTownInitWayPointIndex].position;
                 Vector2 newPos = Vector2.MoveTowards(currentPosition, targetPos, stat.moveSpeed * Time.fixedDeltaTime);
-                rigidbody2D.MovePosition(newPos);
+                rigid.MovePosition(newPos);
 
                 float distance = (currentPosition - targetPos).sqrMagnitude;
 
@@ -125,7 +127,7 @@ public class CharacterPathMove : MonoBehaviour
             {   
                 Vector2 targetPos = inTownPortalWayPoint[currentInTownPortalWayPointIndex].position;
                 Vector2 newPos = Vector2.MoveTowards(currentPosition, targetPos, stat.moveSpeed * Time.fixedDeltaTime);
-                rigidbody2D.MovePosition(newPos);
+                rigid.MovePosition(newPos);
 
                 float distance = (currentPosition - targetPos).sqrMagnitude;
 
@@ -141,7 +143,7 @@ public class CharacterPathMove : MonoBehaviour
             {
                 Vector2 targetPos = fieldPortals[currentFieldPortalIndex].FieldPortalWayPoins[currentFieldPortalWayPointIndex].position;
                 Vector2 newPos = Vector2.MoveTowards(currentPosition, targetPos, stat.moveSpeed * Time.fixedDeltaTime);
-                rigidbody2D.MovePosition(newPos);
+                rigid.MovePosition(newPos);
 
                 float distance = (currentPosition - targetPos).sqrMagnitude;
 
@@ -172,7 +174,7 @@ public class CharacterPathMove : MonoBehaviour
             {
                 Vector2 targetPos = fieldPortals[currentFieldPortalIndex].FieldPortalWayPoins[currentFieldPortalWayPointIndex].position;
                 Vector2 newPos = Vector2.MoveTowards(currentPosition, targetPos, stat.moveSpeed * Time.fixedDeltaTime);
-                rigidbody2D.MovePosition(newPos);
+                rigid.MovePosition(newPos);
 
                 float distance = (currentPosition - targetPos).sqrMagnitude;
 
