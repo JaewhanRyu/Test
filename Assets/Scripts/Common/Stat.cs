@@ -25,7 +25,11 @@ public class Stat : MonoBehaviour
     public float viewRange;
     public float attackRange;
 
+<<<<<<< HEAD
     public Image hpBar_fill;
+=======
+    public Image hpBar;
+>>>>>>> 0a8d2b86d624abe277cfcdcd78b05575f199b0f9
     
     
     void Awake()
@@ -36,6 +40,7 @@ public class Stat : MonoBehaviour
     void Start()
     {
         InitStat();
+        UpdateHpBar();
     }
 
 
@@ -62,10 +67,17 @@ public class Stat : MonoBehaviour
         criticalDamage = dexterity * 0.01f;
     }
 
+<<<<<<< HEAD
     public void HpBarUpdate()
     {
         hpBar_fill.fillAmount = (float)currentHp / maxHp;
     }
 
     
+=======
+    public void UpdateHpBar()
+    {
+        hpBar.fillAmount = (float)currentHp / maxHp;
+    }
+>>>>>>> 0a8d2b86d624abe277cfcdcd78b05575f199b0f9
 }

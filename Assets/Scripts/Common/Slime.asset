@@ -17,6 +17,6 @@ MonoBehaviour:
   intelligence: 5
   dexterity: 5
   viewRange: 1.5
-  attackRange: 0.6
+  attackRange: 1
   moveSpeed: 2
   attackDelay: 2

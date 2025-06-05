@@ -9,6 +9,7 @@ TagManager:
   - Field
   - InTownPortal
   - InFieldPortal
+  - Monster
   layers:
   - Default
   - TransparentFX
